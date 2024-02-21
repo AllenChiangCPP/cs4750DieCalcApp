@@ -12,9 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'DieCalc',
       theme: ThemeData.dark().copyWith(
-          //scaffoldBackgroundColor: Colors.black, // Set background color to black
           appBarTheme: AppBarTheme(
-            //backgroundColor: Colors.black,
           ),
       ),
 
@@ -37,6 +35,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  int testVar = 0;
 
   // Controllers for storing inputs
   // Initialize controllers with default values
@@ -68,6 +67,13 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  //function for testing text display and data, adds d20's add modifier and sub modifier
+  void addTest() {
+    setState(() {
+      testVar = int.parse(d20AddModController.text) + int.parse(d20SubModController.text);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -84,9 +90,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     Expanded(
                       child: Container(
-                        color: Colors.black,
+                        
                         child: const Center(
-                          child: Text('D20'),
+                          child: Text('D20:'),
                         ),
                       ),
                     ),
@@ -143,9 +149,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     Expanded(
                       child: Container(
-                        color: Colors.black,
+                        
                         child: const Center(
-                          child: Text('D12'),
+                          child: Text('D12:'),
                         ),
                       ),
                     ),
@@ -201,9 +207,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     Expanded(
                       child: Container(
-                        color: Colors.black,
+                        
                         child: const Center(
-                          child: Text('D10'),
+                          child: Text('D10:'),
                         ),
                       ),
                     ),
@@ -260,9 +266,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     Expanded(
                       child: Container(
-                        color: Colors.black,
+                        
                         child: const Center(
-                          child: Text('D8'),
+                          child: Text('D8:'),
                         ),
                       ),
                     ),
@@ -316,9 +322,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     Expanded(
                       child: Container(
-                        color: Colors.black,
+                        
                         child: const Center(
-                          child: Text('D6'),
+                          child: Text('D6:'),
                         ),
                       ),
                     ),
@@ -375,9 +381,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     Expanded(
                       child: Container(
-                        color: Colors.black,
+                        
                         child: const Center(
-                          child: Text('D4'),
+                          child: Text('D4:'),
                         ),
                       ),
                     ),
@@ -442,7 +448,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     Expanded(
                       child: Container(
-                        color: Colors.black,
+                        
                         child: const Center(
                           child: Text('Additional Modifiers'),
                         ),
@@ -484,7 +490,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     Expanded(
                       child: Container(
-                        color: Colors.black,
+                        
                         child: const Center(
                           child: Text('Odds to Beat'),
                         ),
@@ -508,19 +514,17 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
 
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0), // Add horizontal padding to the button
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: ElevatedButton(
-                  onPressed: () {
-                    // Action to perform on button press
-                  },
+                  onPressed: addTest, // Call the addTest function when the button is pressed
                   style: ButtonStyle(
                     shape: MaterialStateProperty.all<OutlinedBorder>(
                       RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(0), // Set border radius here
+                        borderRadius: BorderRadius.circular(0),
                       ),
                     ),
-                    backgroundColor: MaterialStateProperty.all<Color>(Colors.red), // Set background color to red
-                    minimumSize: MaterialStateProperty.all<Size>(const Size(double.infinity, 50)), // Set button width and height
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+                    minimumSize: MaterialStateProperty.all<Size>(const Size(double.infinity, 50)),
                   ),
                   child: const Text('Roll', style: TextStyle(color: Colors.black)),
                 ),
@@ -537,44 +541,65 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               Expanded(
                 child: Container(
-                  color: Colors.black,
-                  child: const Center(
-                    child: Text('First Roll: '),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('First Roll: '),
+                      Text('$testVar'), // Displaying the testVar here
+                    ],
                   ),
                 ),
               ),
+
               Expanded(
                 child: Container(
-                  color: Colors.black,
-                  child: const Center(
-                    child: Text('Average: '),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('Average: '),
+                      Text('$testVar'), // Displaying the testVar here
+                    ],
                   ),
                 ),
               ),
+
               Expanded(
                 child: Container(
-                  color: Colors.black,
-                  child: const Center(
-                    child: Text('Min: '),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('Minimum: '),
+                      Text('$testVar'), // Displaying the testVar here
+                    ],
                   ),
                 ),
               ),
+
               Expanded(
                 child: Container(
-                  color: Colors.black,
-                  child: const Center(
-                    child: Text('Max: '),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('Maximum: '),
+                      Text('$testVar'), // Displaying the testVar here
+                    ],
                   ),
                 ),
               ),
+
               Expanded(
                 child: Container(
-                  color: Colors.black,
-                  child: const Center(
-                    child: Text('Beat Odds: '),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('Beat Odds: '),
+                      Text('$testVar'), // Displaying the testVar here
+                      Text('%'),
+                    ],
                   ),
                 ),
               ),
+
             ],
           ),
         ),
