@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dice.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,6 +37,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   int testVar = 0;
+  int rollNumber = 0;
 
   // Controllers for storing inputs
   // Initialize controllers with default values
@@ -61,16 +63,30 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController additionalSubModController = TextEditingController(text: '0');
   TextEditingController oddsToBeatController = TextEditingController(text: '0');
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   //function for testing text display and data, adds d20's add modifier and sub modifier
   void addTest() {
     setState(() {
       testVar = int.parse(d20AddModController.text) + int.parse(d20SubModController.text);
+    });
+  }
+
+  //function for rolling dice
+  void roll() {
+    setState(() {
+      var d20 = Dice(20, modifier: int.parse(d20AddModController.text) - int.parse(d20SubModController.text), multiplier: int.parse(d20RollsController.text));
+      var d20Result = d20.roll();
+      var d12 = Dice(12, modifier: int.parse(d12AddModController.text) - int.parse(d12SubModController.text), multiplier: int.parse(d12RollsController.text));
+      var d12Result = d12.roll();
+      var d10 = Dice(10, modifier: int.parse(d10AddModController.text) - int.parse(d10SubModController.text), multiplier: int.parse(d10RollsController.text));
+      var d10Result = d10.roll();
+      var d8 = Dice(8, modifier: int.parse(d8AddModController.text) - int.parse(d8SubModController.text), multiplier: int.parse(d8RollsController.text));
+      var d8Result = d8.roll();
+      var d6 = Dice(6, modifier: int.parse(d6AddModController.text) - int.parse(d6SubModController.text), multiplier: int.parse(d6RollsController.text));
+      var d6Result = d6.roll();
+      var d4 = Dice(4, modifier: int.parse(d4AddModController.text) - int.parse(d4SubModController.text), multiplier: int.parse(d4RollsController.text));
+      var d4Result = d4.roll();
+      var additionalMods = int.parse(additionalAddModController.text) - int.parse(additionalSubModController.text);
+      rollNumber = d20Result + d12Result + d10Result + d8Result + d6Result + d4Result + additionalMods;
     });
   }
 
@@ -516,7 +532,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: ElevatedButton(
-                  onPressed: addTest, // Call the addTest function when the button is pressed
+                  onPressed: roll, // Call the addTest function when the button is pressed
                   style: ButtonStyle(
                     shape: MaterialStateProperty.all<OutlinedBorder>(
                       RoundedRectangleBorder(
@@ -545,7 +561,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text('First Roll: '),
-                      Text('$testVar'), // Displaying the testVar here
+                      Text('$rollNumber'), // Displaying the testVar here
                     ],
                   ),
                 ),
@@ -593,7 +609,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text('Beat Odds: '),
-                      Text('$testVar'), // Displaying the testVar here
+                      Text('$rollNumber'), // Displaying the testVar here
                       Text('%'),
                     ],
                   ),
