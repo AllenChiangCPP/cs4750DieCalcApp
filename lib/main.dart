@@ -38,6 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   int testVar = 0;
   int rollNumber = 0;
+  double averageRoll = 0;
 
   // Controllers for storing inputs
   // Initialize controllers with default values
@@ -69,10 +70,15 @@ class _MyHomePageState extends State<MyHomePage> {
       testVar = int.parse(d20AddModController.text) + int.parse(d20SubModController.text);
     });
   }
-
-  //function for rolling dice
+  //function for calling all other functions
   void roll() {
     setState(() {
+      rollDice();
+      average();
+    });
+  }
+  //function for rolling dice
+  void rollDice() {
       var d20 = Dice(20, modifier: int.parse(d20AddModController.text) - int.parse(d20SubModController.text), multiplier: int.parse(d20RollsController.text));
       var d20Result = d20.roll();
       var d12 = Dice(12, modifier: int.parse(d12AddModController.text) - int.parse(d12SubModController.text), multiplier: int.parse(d12RollsController.text));
@@ -87,7 +93,24 @@ class _MyHomePageState extends State<MyHomePage> {
       var d4Result = d4.roll();
       var additionalMods = int.parse(additionalAddModController.text) - int.parse(additionalSubModController.text);
       rollNumber = d20Result + d12Result + d10Result + d8Result + d6Result + d4Result + additionalMods;
-    });
+  }
+
+  //function for getting average of given dice
+  void average() {
+      var d20 = Dice(20, modifier: int.parse(d20AddModController.text) - int.parse(d20SubModController.text), multiplier: int.parse(d20RollsController.text));
+      var d20Avg = int.parse(d20RollsController.text) * d20.calculateAverage();
+      var d12 = Dice(12, modifier: int.parse(d12AddModController.text) - int.parse(d12SubModController.text), multiplier: int.parse(d12RollsController.text));
+      var d12Avg = int.parse(d12RollsController.text) * d12.calculateAverage();
+      var d10 = Dice(10, modifier: int.parse(d10AddModController.text) - int.parse(d10SubModController.text), multiplier: int.parse(d10RollsController.text));
+      var d10Avg = int.parse(d10RollsController.text) * d10.calculateAverage();
+      var d8 = Dice(8, modifier: int.parse(d8AddModController.text) - int.parse(d8SubModController.text), multiplier: int.parse(d8RollsController.text));
+      var d8Avg = int.parse(d8RollsController.text) * d8.calculateAverage();
+      var d6 = Dice(6, modifier: int.parse(d6AddModController.text) - int.parse(d6SubModController.text), multiplier: int.parse(d6RollsController.text));
+      var d6Avg = int.parse(d6RollsController.text) * d6.calculateAverage();
+      var d4 = Dice(4, modifier: int.parse(d4AddModController.text) - int.parse(d4SubModController.text), multiplier: int.parse(d4RollsController.text));
+      var d4Avg = int.parse(d4RollsController.text) * d4.calculateAverage();
+      var additionalMods = int.parse(additionalAddModController.text) - int.parse(additionalSubModController.text);
+      averageRoll = d20Avg + d12Avg + d10Avg + d8Avg + d6Avg + d4Avg + additionalMods;
   }
 
   @override
@@ -573,7 +596,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text('Average: '),
-                      Text('$testVar'), // Displaying the testVar here
+                      Text('$averageRoll'), // Displaying the testVar here
                     ],
                   ),
                 ),
