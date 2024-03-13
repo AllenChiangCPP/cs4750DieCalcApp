@@ -39,6 +39,8 @@ class _MyHomePageState extends State<MyHomePage> {
   int testVar = 0;
   int rollNumber = 0;
   double averageRoll = 0;
+  int minRoll = 0;
+  int maxRoll = 0;
 
   // Controllers for storing inputs
   // Initialize controllers with default values
@@ -75,6 +77,8 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       rollDice();
       average();
+      minimumRoll();
+      maximumRoll();
     });
   }
   //function for rolling dice
@@ -111,6 +115,30 @@ class _MyHomePageState extends State<MyHomePage> {
       var d4Avg = int.parse(d4RollsController.text) * d4.calculateAverage();
       var additionalMods = int.parse(additionalAddModController.text) - int.parse(additionalSubModController.text);
       averageRoll = d20Avg + d12Avg + d10Avg + d8Avg + d6Avg + d4Avg + additionalMods;
+  }
+
+  //function for getting minimum possible roll
+  void minimumRoll() {
+    var d20Min = int.parse(d20RollsController.text) + (int.parse(d20RollsController.text) * (int.parse(d20AddModController.text) - int.parse(d20SubModController.text)));
+    var d12Min = int.parse(d12RollsController.text) + (int.parse(d12RollsController.text) * (int.parse(d12AddModController.text) - int.parse(d12SubModController.text)));
+    var d10Min = int.parse(d10RollsController.text) + (int.parse(d10RollsController.text) * (int.parse(d10AddModController.text) - int.parse(d10SubModController.text)));
+    var d8Min = int.parse(d8RollsController.text) + (int.parse(d8RollsController.text) * (int.parse(d8AddModController.text) - int.parse(d8SubModController.text)));
+    var d6Min = int.parse(d6RollsController.text) + (int.parse(d6RollsController.text) * (int.parse(d6AddModController.text) - int.parse(d6SubModController.text)));
+    var d4Min = int.parse(d4RollsController.text) + (int.parse(d4RollsController.text) * (int.parse(d4AddModController.text) - int.parse(d4SubModController.text)));
+    var additionalMods = int.parse(additionalAddModController.text) - int.parse(additionalSubModController.text);
+    minRoll = d20Min + d12Min + d10Min + d8Min + d6Min + d4Min + additionalMods;
+  }
+
+  //function for getting maximum possible roll
+  void maximumRoll() {
+    var d20Max = (20 * int.parse(d20RollsController.text)) + (int.parse(d20RollsController.text) * (int.parse(d20AddModController.text) - int.parse(d20SubModController.text)));
+    var d12Max = (12 * int.parse(d12RollsController.text)) + (int.parse(d12RollsController.text) * (int.parse(d12AddModController.text) - int.parse(d12SubModController.text)));
+    var d10Max = (10 * int.parse(d10RollsController.text)) + (int.parse(d10RollsController.text) * (int.parse(d10AddModController.text) - int.parse(d10SubModController.text)));
+    var d8Max = (8 * int.parse(d8RollsController.text)) + (int.parse(d8RollsController.text) * (int.parse(d8AddModController.text) - int.parse(d8SubModController.text)));
+    var d6Max = (6 * int.parse(d6RollsController.text)) + (int.parse(d6RollsController.text) * (int.parse(d6AddModController.text) - int.parse(d6SubModController.text)));
+    var d4Max = (4 * int.parse(d4RollsController.text)) + (int.parse(d4RollsController.text) * (int.parse(d4AddModController.text) - int.parse(d4SubModController.text)));
+    var additionalMods = int.parse(additionalAddModController.text) - int.parse(additionalSubModController.text);
+    maxRoll = d20Max + d12Max + d10Max + d8Max + d6Max + d4Max + additionalMods;
   }
 
   @override
@@ -608,7 +636,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text('Minimum: '),
-                      Text('$testVar'), // Displaying the testVar here
+                      Text('$minRoll'), // Displaying the testVar here
                     ],
                   ),
                 ),
@@ -620,7 +648,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text('Maximum: '),
-                      Text('$testVar'), // Displaying the testVar here
+                      Text('$maxRoll'), // Displaying the testVar here
                     ],
                   ),
                 ),
