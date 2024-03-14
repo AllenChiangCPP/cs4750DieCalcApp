@@ -41,6 +41,8 @@ class _MyHomePageState extends State<MyHomePage> {
   double averageRoll = 0;
   int minRoll = 0;
   int maxRoll = 0;
+  String beatOddsChance = '0';
+
 
   // Controllers for storing inputs
   // Initialize controllers with default values
@@ -79,6 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
       average();
       minimumRoll();
       maximumRoll();
+      beatOdds();
     });
   }
   //function for rolling dice
@@ -139,6 +142,20 @@ class _MyHomePageState extends State<MyHomePage> {
     var d4Max = (4 * int.parse(d4RollsController.text)) + (int.parse(d4RollsController.text) * (int.parse(d4AddModController.text) - int.parse(d4SubModController.text)));
     var additionalMods = int.parse(additionalAddModController.text) - int.parse(additionalSubModController.text);
     maxRoll = d20Max + d12Max + d10Max + d8Max + d6Max + d4Max + additionalMods;
+  }
+
+  void beatOdds() {
+    if (maxRoll < int.parse(oddsToBeatController.text)) {
+      beatOddsChance = '0';
+    }
+    else if(minRoll >= int.parse(oddsToBeatController.text)) {
+      beatOddsChance = '100';
+    }
+    else {
+      var percent = ((maxRoll - (int.parse(oddsToBeatController.text)))/maxRoll) * 100;
+      //print(percent);
+      beatOddsChance =  percent.toStringAsFixed(2);
+    }
   }
 
   @override
@@ -660,7 +677,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text('Beat Odds: '),
-                      Text('$rollNumber'), // Displaying the testVar here
+                      Text('$beatOddsChance'), // Displaying the testVar here
                       Text('%'),
                     ],
                   ),
